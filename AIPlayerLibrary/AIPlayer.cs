@@ -1,7 +1,6 @@
 ﻿using AIPlayerLibrary.Extensions;
 using ChessLibrary;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace AIPlayerLibrary
@@ -23,13 +22,11 @@ namespace AIPlayerLibrary
         {
             AIMove bestMove = new AIMove() { Score = int.MinValue };
 
-            var starting = DateTime.Now;
-
             Parallel.ForEach(board.GetAllAvailableMoves(_AIColour), (move) =>
             {
                 var simulationBoard = board.Clone();
-                var pieceToMove = simulationBoard.SelectPiece(move.OldPosition).Clone();
-                simulationBoard.MovePieceToPosition(pieceToMove, move.NewPosition);
+                var simulationPiece = simulationBoard.SelectPiece(move.OldPosition).Clone();
+                simulationBoard.MovePieceToPosition(simulationPiece, move.NewPosition);
 
                 move.Score = MinimizeOpponentPlay(simulationBoard, level: 1, alpha: int.MinValue, beta: int.MaxValue);
 
@@ -37,10 +34,7 @@ namespace AIPlayerLibrary
                 {
                     bestMove = move;
                 };
-
             });
-
-            Debug.WriteLine($"completed in {DateTime.Now - starting}");
 
             return bestMove;
         }
@@ -53,7 +47,6 @@ namespace AIPlayerLibrary
             {
                 return board.CalculateScore(_AIColour);
             }
-
 
             if (board.IsCheckmated(_opponentColor))
             {
@@ -70,8 +63,8 @@ namespace AIPlayerLibrary
             foreach (var move in board.GetAllAvailableMoves(_AIColour))
             {
                 var simulationBoard = board.Clone();
-                var pieceToMove = simulationBoard.SelectPiece(move.OldPosition).Clone();
-                simulationBoard.MovePieceToPosition(pieceToMove, move.NewPosition);
+                var simulationPiece = simulationBoard.SelectPiece(move.OldPosition).Clone();
+                simulationBoard.MovePieceToPosition(simulationPiece, move.NewPosition);
 
                 bestScore = Math.Max(bestScore, MinimizeOpponentPlay(simulationBoard, level + 1, alpha, beta));
 
@@ -110,8 +103,8 @@ namespace AIPlayerLibrary
             foreach (var move in board.GetAllAvailableMoves(_opponentColor))
             {
                 var simulationBoard = board.Clone();
-                var pieceToMove = simulationBoard.SelectPiece(move.OldPosition).Clone();
-                simulationBoard.MovePieceToPosition(pieceToMove, move.NewPosition);
+                var simulationPiece = simulationBoard.SelectPiece(move.OldPosition).Clone();
+                simulationBoard.MovePieceToPosition(simulationPiece, move.NewPosition);
 
                 bestScore = Math.Min(bestScore, MaximizeAIPlay(simulationBoard, level + 1, alpha, beta));
 

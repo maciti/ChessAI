@@ -93,7 +93,6 @@ namespace ChessLibrary
                 case PieceType.King:
                     availableMoves = MovesHelper.GetKingMoves(piece, this);
                     break;
-
             }
 
             if (checkForKingSafety) //additional check to remove unsafe/illegal moves (all the moves that are exposing the king to capture, e.g. moving a pawn that is protecting the king)

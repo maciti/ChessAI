@@ -3,9 +3,6 @@ using ChessLibrary;
 using System;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Chess
@@ -101,16 +98,16 @@ namespace Chess
             Position newPosition = (Position)((Button)sender).Tag;
 
             var piece = _board.SelectPiece(newPosition);
-            
-            //a new piece is picked
-            if (piece != null && _previousSelectedPiece != null && piece.Colour == Turn)
+
+            //a new white piece is picked
+            if (piece != null && piece.Colour == PieceColour.White)
             {
                 _previousSelectedPiece = piece;
                 HighlightPieceMoves(piece);
                 return;
             }
 
-            //attempting to move to new position
+            //attempting to capture/move to new position
             if (_previousSelectedPiece != null)
             {
                 var availableMoves = _board.GetAvailableMoves(_previousSelectedPiece);
@@ -127,16 +124,9 @@ namespace Chess
                     _previousSelectedPiece = null;
                 }
             }
-            else //attempting to select a new piece
+            else
             {
-                if (piece == null || piece.Colour != Turn)
-                {
-                    _previousSelectedPiece = null;
-                    return;
-                }
-
-                _previousSelectedPiece = piece;
-                HighlightPieceMoves(piece);
+                _previousSelectedPiece = null;
             }
         }
 
@@ -225,11 +215,11 @@ namespace Chess
             //creating AI player with depth level from textBoxAILevel.Text
             _AIPlayer = new AIPlayer(PieceColour.Black);
             _AIPlayer.DepthLevel = Convert.ToInt32(textBoxAILevel.Text);
-            
+
             //creating classic board
             _board = new Board(8);
             _board.AddAllThePieces();
-  
+
             DrawPiecesOnTheBoard();
             Turn = PieceColour.White;
             panelTurn.BackColor = Color.White;
