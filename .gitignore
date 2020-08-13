@@ -1,0 +1,9 @@
+/.vs
+/UnitTests/bin
+/UnitTests/obj
+/ChessUI/obj
+/ChessUI/bin
+/ChessLibrary/bin
+/ChessLibrary/obj
+/AIPlayerLibrary/bin
+/AIPlayerLibrary/obj
