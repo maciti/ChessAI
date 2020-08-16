@@ -11,10 +11,12 @@ It's composed by 3 subprojects:
 
 A simple windows form project
 
-<b>ChessLibrary</b>
+<h3>ChessLibrary</h3>
 
-A class library project that contains the logic of the game. The main class is Board.cs
+A class library project that contains the logic of the game. The main class that contains the logic is Board.cs
 
-<b>AIPlayerLibrary</b>
+<h3>AIPlayerLibrary</h3>
 
-A class library project that 
+A class library project that plays against the user.
+The main class is AIPlayer.cs that is responsible to calculate the next move.
+The algorithm used by AIPlayer.CalculateNextMove(Board) is a minmax implementation with alpha beta pruning
