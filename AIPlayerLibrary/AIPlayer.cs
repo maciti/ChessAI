@@ -25,8 +25,8 @@ namespace AIPlayerLibrary
             Parallel.ForEach(board.GetAllAvailableMoves(_AIColour), (move) =>
             {
                 var simulationBoard = board.Clone();
-                var simulationPiece = simulationBoard.SelectPiece(move.OldPosition).Clone();
-                simulationBoard.MovePieceToPosition(simulationPiece, move.NewPosition);
+                var piece = simulationBoard.SelectPiece(move.OldPosition);
+                simulationBoard.MovePieceToPosition(piece, move.NewPosition);
 
                 move.Score = MinimizeOpponentPlay(simulationBoard, level: 1, alpha: int.MinValue, beta: int.MaxValue);
 
@@ -63,8 +63,8 @@ namespace AIPlayerLibrary
             foreach (var move in board.GetAllAvailableMoves(_AIColour))
             {
                 var simulationBoard = board.Clone();
-                var simulationPiece = simulationBoard.SelectPiece(move.OldPosition).Clone();
-                simulationBoard.MovePieceToPosition(simulationPiece, move.NewPosition);
+                var piece = simulationBoard.SelectPiece(move.OldPosition);
+                simulationBoard.MovePieceToPosition(piece, move.NewPosition);
 
                 bestScore = Math.Max(bestScore, MinimizeOpponentPlay(simulationBoard, level + 1, alpha, beta));
 
@@ -103,8 +103,8 @@ namespace AIPlayerLibrary
             foreach (var move in board.GetAllAvailableMoves(_opponentColor))
             {
                 var simulationBoard = board.Clone();
-                var simulationPiece = simulationBoard.SelectPiece(move.OldPosition).Clone();
-                simulationBoard.MovePieceToPosition(simulationPiece, move.NewPosition);
+                var piece = simulationBoard.SelectPiece(move.OldPosition);
+                simulationBoard.MovePieceToPosition(piece, move.NewPosition);
 
                 bestScore = Math.Min(bestScore, MaximizeAIPlay(simulationBoard, level + 1, alpha, beta));
 

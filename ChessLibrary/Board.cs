@@ -26,7 +26,7 @@ namespace ChessLibrary
         {
             var newBoard = new Board(this.Lenght);
 
-            this.AvailablePieces.ToList().ForEach(x => { newBoard._piecesPositions[x.CurrentPosition.Row, x.CurrentPosition.Column] = x; });
+            this.AvailablePieces.ToList().ForEach(x => { newBoard._piecesPositions[x.CurrentPosition.Row, x.CurrentPosition.Column] = x.Clone(); });
 
             return newBoard;
         }
@@ -46,12 +46,28 @@ namespace ChessLibrary
             return _piecesPositions[row, col];
         }
 
-        public void MovePieceToPosition(Piece piece, Position position)
+        /// <summary>
+        /// moving piece to new position. NOTE: DO NOT USE IT FOR SIMULATION position reference type - only moving pointer, not creating a new position object
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <param name="position"></param>
+        public void MovePieceToPosition(Piece piece, Position position)  //NOTE: DO NOT USE FOR SIMULATION position reference type - only moving pointer, not creating a new position object
         {
             var oldPosition = piece.CurrentPosition;
 
             piece.CurrentPosition = position;
             _piecesPositions[position.Row, position.Column] = piece;
+
+            _piecesPositions[oldPosition.Row, oldPosition.Column] = null;
+        }
+
+        public void MovePieceToPosition(Piece piece, int row, int column)  //creating a new object position  - can be used for simulation
+        {
+            var oldPosition = piece.CurrentPosition;
+
+            piece.CurrentPosition = new Position(row, column);
+            
+            _piecesPositions[row, column] = piece;
 
             _piecesPositions[oldPosition.Row, oldPosition.Column] = null;
         }
