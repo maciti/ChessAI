@@ -17,6 +17,15 @@ A class library project that contains the logic of the game. The main class that
 
 <h3>AIPlayerLibrary</h3>
 
-A class library project that plays against the user.
-The main class is AIPlayer.cs that is responsible to calculate the next move.
-The algorithm used by AIPlayer.CalculateNextMove(Board) is a minmax implementation with alpha beta pruning
+A class library project that plays against the user. <br/>
+The main class is AIPlayer.cs that is responsible to calculate the next move. <br/>
+The algorithm used by AIPlayer.CalculateNextMove(Board) method is a minimax implementation with alpha-beta pruning
+
+<h3>TODO (limitations)</h3>
+<ul>
+  <li>Castling not implemented</li>
+  <li>Promotion not implemented</li>
+  <li>Clocks</li>
+ </ul>
+  
+
