@@ -9,7 +9,7 @@ It's composed by 3 subprojects:
 
 <h3>ChessUI</h3>
 
-A simple windows form project
+A simple windows form project to allow the user to interact with the board and play against the computer/AI
 
 <h3>ChessLibrary</h3>
 
