@@ -7,7 +7,7 @@ The project is written using .NET Core 3.1
 
 It's composed by 3 subprojects:
 
-<b>ChessUI</b>
+<h3>ChessUI</h3>
 
 A simple windows form project
 
